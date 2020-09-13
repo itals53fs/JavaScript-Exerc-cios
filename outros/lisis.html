@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Luis e nandinha</title>
+    <script src="bakend.js"></script>
+    <style>
+        .cor{
+            background-color:gray;
+            width: 100;
+            height: 100;
+            border: 1px solid black;
+            font-size: 20px;
+            
+        }
+
+        div#cor1 :hover{
+            background-color: rgb(175, 173, 173)
+        }
+
+        
+    </style>
+</head>
+<body>
+   
+
+    <div class="cor" id="cor1">
+        <p>Usuários</p>
+        <input type="text" data-js="nome" placeholder="cadastro de usuario">
+        <input type="number" data-js="cpf" placeholder="cpf">
+        <input type="email" data-js="email" placeholder="email">
+        <button type="submit" data-js="cadastro">cadastro</button>
+    </div>
+    
+    <div>
+        <input type="text" data-js="pesquisa" placeholder="pequise">
+        <button type="submit" data-js="pesquisar">pesquisar</button>
+    </div>
+
+    
+<div id="res"></div>
+
+</div>
+ <script src="bakend.js"></script>
+</body>
+</html>

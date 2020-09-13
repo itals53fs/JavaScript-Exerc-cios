@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <style>
+        input {
+            font-size: 60px;
+            border: ridge wheat 5px;
+            width: 300px;
+            height: 300px;
+            margin: 10px;
+            text-align: center;
+            background-color: #7159c1;
+            color: white;
+            border-radius: 100%;
+        }
+
+        button#start {
+            background-color: #7159c1;
+            border-radius: 100%;
+            width: 100px;
+            height: 100px;
+        }
+
+        button#stop {
+            background-color: red;
+            border-radius: 100%;
+            width: 100px;
+            height: 100px;
+        }
+
+        button#reset {
+            background-color: green;
+            border-radius: 100%;
+            width: 100px;
+            height: 100px;
+        }
+
+        body {
+            background-color: pink;
+            padding: 10px;
+        }
+
+    </style>
+</head>
+
+<body>
+    <div id="bloco">
+        <input type="text" data-js="text">
+        <div>
+            <button data-js="start" id="start" type="submit">Start</button>
+            <button data-js="stop" id="stop">Stop</button>
+            <button data-js="reset" id="reset">Reset</button>
+        </div>
+        <script>
+            (function () {
+                /*O desafio de hoje será um pequeno projeto: um cronômetro!
+                As regras para criação do cronômetro são as seguintes:
+                1. Crie um arquivo index.html e adicione esse script a ele;
+                2. Crie um campo `input` do tipo `text`, e inicie-o com um valor 0 (zero).
+                Ele será o nosso cronômetro;
+                3. Crie 3 botões para as ações do cronômetro: Start, Stop e Reset;
+                4. Ao clicar em Start, o valor do campo deve ser incrementado de 1 em 1, a
+                cada segundo;
+                5. Ao clicar em Stop, o cronômetro deve parar de contar;
+                6. Ao clicar em Reset, o cronômetro deve zerar e parar de contar.
+                Utilize o atributo data-js para nomear o campo e os botões. Você pode
+                usar o nome que achar melhor, desde que ele seja semântico, ou seja, o nome
+                dado ao elemento HTML deve definir o que o elemento é ou o que ele faz.
+                */
+                let $inputCro = document.querySelector('input[data-js="text"]');
+                $inputCro.value = 0;
+                let $buttonStart = document.querySelector('button[data-js="start"]');
+                let $buttonStop = document.querySelector('button[data-js="stop"]');
+                let $buttonReset = document.querySelector('button[data-js="reset"')
+                let temporizador;
+                let cont = 0;
+                let min = 0;
+                let hora = 0;
+                let segun = 0;
+                $inputCro.value = `${00}:${00}:${00}`
+
+                function time() {
+                    segun++;
+                    if (segun == 100) {
+
+
+                        segun = 0;
+                        min++;
+                    }
+                    if (min == 60) {
+                        hora++
+                        min = 0
+                    }
+                    $inputCro.value = `${hora} : ${min} : ${segun}`
+                    temporizador = setTimeout(time, 10);
+
+                }
+                $buttonStart.addEventListener('click', (event) => {
+                    event.preventDefault();
+                    time();
+                })
+                $buttonStop.addEventListener('click', (event) => {
+                    event.preventDefault();
+                    clearTimeout(temporizador);
+                }, false);
+                $buttonReset.addEventListener('click', (event) => {
+                    event.preventDefault();
+                    clearTimeout(temporizador);
+                    min = 0;
+                    hora = 0;
+                    segun = 0;
+                    $inputCro.value = `${00}:${00}:${00}`
+
+                }, false);
+            })();
+        </script>
+</body>
+
+</html>

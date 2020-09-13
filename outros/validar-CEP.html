@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<!--tales-->
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        p {
+            color: slategray;
+        }
+
+        span {
+            color: black;
+        }
+    </style>\
+</head>
+
+<body>
+    <form data-js="forme-cep">
+        <input type="text" data-js="input-cep">
+        <button type="submit">Consultar</button>
+    </form>
+    <h3>
+        <div data-js="status"></div>
+    </h3>
+
+    <div data-js="cep-info">
+        <p>Estado: <span data-js="estado"></span></p>
+        <p>Cidade: <span data-js="cidade"></span></p>
+        <p>CEP: <span data-js="cep"></span></p>
+        <p>Logradouro: <span data-js="logadouro"></span></p>
+        <p>Bairro: <span data-js="bairro"></span></p>
+    </div>
+
+    <script>
+        (function () {
+    'use strict'
+
+    function DOM(no) {
+        this.element = document.querySelectorAll(no);
+    }
+
+    DOM.prototype.on = function on(eventType, callback) {
+        Array.prototype.forEach.call(this.element, function (element) {
+            element.addEventListener(eventType, callback, false)
+        })
+    }
+    DOM.prototype.off = function off(eventType, callback) {
+        Array.prototype.forEach.call(this.element, function (element) {
+            element.removeEventListener(eventType, callback, false)
+        })
+    }
+
+    DOM.prototype.get = function get() {
+        return this.element;
+    }
+
+    DOM.prototype.forEach = function forEachD() {
+        return Array.prototype.forEach.apply(this.element, arguments)
+    }
+
+    DOM.prototype.map = function map() {
+        return Array.prototype.map.apply(this.element, arguments)
+    }
+
+    DOM.prototype.filter = function filter() {
+        return Array.prototype.filter.apply(this.element, arguments)
+    }
+
+    DOM.prototype.reduce = function reduce() {
+        return Array.prototype.reduce.apply(this.element, arguments)
+    }
+
+    DOM.prototype.reduceRight = function reduceRight() {
+        return Array.prototype.reduceRight.apply(this.element, arguments)
+    }
+
+    DOM.prototype.some = function some() {
+        return Array.prototype.some.apply(this.element, arguments)
+    }
+
+    DOM.prototype.every = function every() {
+        return Array.prototype.every.apply(this.element, arguments)
+    }
+
+    DOM.prototype.isArray = function isArray(pamp) {
+        return Object.prototype.toString.call(pamp) === '[object Array]';
+    }
+
+    DOM.prototype.isObject = function isObject(pamp) {
+        return Object.prototype.toString.call(pamp) === '[object Object]';
+    }
+
+    DOM.prototype.isFunction = function isFunction(pamp) {
+        return Object.prototype.toString.call(pamp) === '[object Function]';
+    }
+
+    DOM.prototype.isNumber = function isNumber(pamp) {
+        return Object.prototype.toString.call(pamp) === '[object Number]';
+    }
+
+    DOM.prototype.isString = function isString(pamp) {
+        return Object.prototype.toString.call(pamp) === '[object String]';
+    }
+
+    DOM.prototype.isBoolean = function isBoolean(pamp) {
+        return Object.prototype.toString.call(pamp) === '[object Boolean]';
+    }
+    DOM.prototype.isNull = function isNull(pamp) {
+        return Object.prototype.toString.call(pamp) === '[object Null]'
+            || Object.prototype.toString.call(pamp) === '[object Undefined]'
+    }
+
+    let $formCPE = new DOM('[data-js="forme-cep"]');
+    let $inputCEP = new DOM('[data-js="input-cep"]');
+    let $cepInfo = new DOM('[data-js="cidade"]');
+
+    let $logadouro = new DOM('[data-js="logadouro"]');
+    let $cidade = new DOM('[data-js="cidade"]')
+    let $bairro = new DOM('[data-js="bairro"]')
+    let $estado = new DOM('[data-js="estado"]')
+    let $CEP = new DOM('[data-js="cep"]')
+    let $status = new DOM('[data-js="status"]')
+    
+    $formCPE.on('submit', handleSubmitForm)
+
+    let ajax = new XMLHttpRequest();
+
+
+    function handleSubmitForm(event) {
+        event.preventDefault()
+        let url = getURL();
+        ajax.open('GET', url);
+        ajax.send();
+        mensagem('loading');
+        ajax.addEventListener('readystatechange', handleReady, false);
+    }
+    function getURL(){
+        let verificar = clearCEP();
+        return 'https://ws.apicep.com/cep/[cepCode].json'.replace(
+            '[cepCode]', verificar);
+    }
+    function clearCEP(){
+        return $inputCEP.get()[0].value.replace(/\D/g, '');
+    }
+
+    function handleReady() {
+        if (isresOK) {
+            mensagem('ok');
+            fillCEPFields();
+            
+    
+        } else {
+            console.log('carregando...');
+
+        }
+    }
+    function isresOK(){
+        return ajax.readyState === 4 && ajax.status === 200;
+    }
+    function fillCEPFields(){
+        let data = parseData();
+        console.log(data.city)
+        if(!data){
+            mensagem('erro')
+        }
+        
+        $logadouro.get()[0].textContent = data.address;
+        $cidade.get()[0].textContent = data.city;
+        $estado.get()[0].textContent = data.state;
+        $CEP.get()[0].textContent = data.code;
+        $bairro.get()[0].textContent = data.district;
+
+    }
+
+    function parseData(){
+        let result;
+        try{
+            return JSON.parse(ajax.responseText);
+        }
+        catch(e){
+            result = null;
+        }
+        return result;
+    }
+
+    function mensagem(type){
+        let cep = clearCEP();
+        let messege =  {
+            loading:`Buscando informações para o CEP: ${cep}...`,
+            ok:`Endereço referente ao CEP: ${cep}.`,
+            erro: `Não encontramos o endereço para o CEP: ${cep}.`
+        }
+        $status.get()[0].textContent = messege[type];
+    }
+    console.log($status)
+})();
+
+    </script>
+</body>
+
+</html>

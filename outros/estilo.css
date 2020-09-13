@@ -1,0 +1,36 @@
+
+input {
+    font-size: 45px;
+    border: solid black 1px;
+    width: 220px;
+    height: 220px;
+    margin: 10px;
+    text-align: center;
+    background-color: #7159c1; 
+    color: white;
+    border-radius: 100%;
+    
+}
+body{
+    background-color: pink;
+    border: solid 1px black;
+}
+
+button#start {
+background-color: #7159c1;
+border-radius: 100%;
+width: 100px;
+height: 100px;
+}
+button#stop{
+background-color:red;
+border-radius: 100%;
+width: 100px;
+height: 100px;
+}
+button#reset{
+background-color:green;
+border-radius: 100%;
+width: 100px;
+height: 100px;
+}

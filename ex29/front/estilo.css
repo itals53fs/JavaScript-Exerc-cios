@@ -1,0 +1,29 @@
+ul{
+
+list-style: none;
+}
+input{
+    margin: 2px;
+    border: 1px solid grey;
+    width: 200px;
+    height: 25px;
+}
+h2{
+    font: outline;
+    text-align: center;
+}
+
+table td{
+    border: solid 1px black; 
+    margin: 5px;
+    padding: 5px;
+    text-align: center;
+}
+img{
+    height: auto;
+    width: 100px;
+}
+thead{
+    font-size: 20px;
+    font-style: oblique;
+}

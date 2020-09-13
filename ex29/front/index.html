@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="estilo.css">
+    <title>Ex29</title>
+
+</head>
+
+<body>
+
+    <head>
+        
+        <h2>
+            <span data-js="empresa"></span>
+            <span data-js="contato"></span>
+        </h2>
+    </head>
+    <form data-js="formulario">
+        <ul>
+            <h3>Cadatre</h3>
+        <li><input type="url" data-js="url" placeholder="url"></li>
+        <li><input type="text" data-js="marca" placeholder="marca/modelo"></input></li>
+        <li><input type="number" data-js="ano" placeholder="ano"></li>
+        <li><input type="text" data-js="placa" placeholder="placa"></li>
+        <li><input type="text" data-js="cor" placeholder="cor"></input></li>
+        <li><button type="submit" data-js="cadastrar">Cadastrar</button></li>
+        
+        
+        
+        
+    </ul>
+    </form>
+
+    <table>
+        <thead>
+            <tr>
+                <td>imagem</td>
+                <td>Marca/modelo</td>
+                <td>Ano</td>
+                <td>placa</td>
+                <td>Cor</td>
+            </tr>
+        </thead>
+        <tbody data-js="table-Info">
+
+        </tbody>
+
+    </table>
+    <script src="/front/DOM.js"></script>
+    <script src="/front/index.js"></script>
+</body>
+
+</html>
